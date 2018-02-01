@@ -1,25 +1,28 @@
-extends ../layouts/default
+extends ../layouts/mdl/default
 
 block content
-  .container
-    .row: col-sm-10.col-sm-offset-1.col-md-8.col-md-offset-2
-      if user
-        h2 Clients
-        if user.canAccessKeystone
-          p.text-success This section is under construction...
-          ul
-            for client in clients
-              li= client.fullName + " " + client._id
-        else
-          p.text-warning This section is under construction...
+  .mdl-card__supporting-text
+    if user
+      h3 Clients
+      if user.canAccessKeystone
+        p.text-success This section is under construction...
+        ul.demo-list-two.mdl-list
+          for client in clients
+            li.mdl-list__item.mdl-list__item--two-line
+              span.mdl-list__item-primary-content
+                i.material-icons.mdl-list__item-avatar person
+                span= client.fullName
+                span.mdl-list__item-sub-title= client.phone + (client.email ? " " + client.email : "")
       else
-        h2 Sorry, access denied.
-        .alert.alert-danger
-          strong Oops...
-          br
-          span You are not authorized.
-    script.
-      //console.log(locals);
-      //console.log(data);
-      //console.log(clients);
-      //console.log(store);
+        p.text-warning This section is under construction...
+    else
+      h3 Sorry, access denied.
+      p
+        strong Oops...
+        br
+        span You are not authorized. So, you can't see clientlist.
+  script.
+    //console.log(locals);
+    //console.log(data);
+    //console.log(clients);
+    //console.log(store);
