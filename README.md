@@ -4,8 +4,6 @@
 
 ## About
 
-This is simple audioplayer for mp3 tracks (all mp3 should be put to `./test-audio` directory).
-Can be searched by substring in file name string.
 Based on [KeystoneJS](http://keystonejs.com/).
 
 ## TODO
