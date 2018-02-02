@@ -1,28 +1,87 @@
 extends ../layouts/mdl/default
 
 block content
-  .mdl-card__supporting-text
-    if user
-      h3 Clients
-      if user.canAccessKeystone
-        p.text-success This section is under construction...
-        ul.demo-list-two.mdl-list
-          for client in clients
-            li.mdl-list__item.mdl-list__item--two-line
-              span.mdl-list__item-primary-content
-                i.material-icons.mdl-list__item-avatar person
-                span= client.fullName
-                span.mdl-list__item-sub-title= client.phone + (client.email ? " " + client.email : "")
+  if user
+    .mdl-layout__tab-bar
+      a(href='#scrollTab1').mdl-layout__tab.is-active Clientlist
+      a(href='#scrollTab2').mdl-layout__tab Chat history
+
+    main.mdl-layout__content
+      section.mdl-layout__tab-panel.is-active#scrollTab1
+        .page-content
+          ul.mdl-list
+            for client in clients
+              li.mdl-list__item
+                span.mdl-list__item-primary-content
+                  i.material-icons.mdl-list__item-avatar person
+                  span= client.fullName
+                br
+                span.mdl-list__item-primary-content
+                  span.mdl-list__item-sub-title= client.phone + (client.email ? " " + client.email : "")
+                br
+                span.mdl-list__item-secondary-content
+                  p
+                    ul
+                      for i in chatHistoryExample
+                        li= chatHistoryExample[i]
+
+    main.mdl-layout__content
+      section.mdl-layout__tab-panel#scrollTab2
+        .page-content Tab 2 content
+
+  else
+    .mdl-card.mdl-cell.mdl-cell--12-col
+      .mdl-card__supporting-text
+        h3 Sorry
+        p You should be logged to see this.
+
+    //-.mdl-card__supporting-text
+      if user
+        h3 Clients
+        if user.canAccessKeystone
+          .mdl-card.mdl-cell.mdl-cell--12-col
+            h4 Clientlist
+            //-p.text-success This section is under construction...
+            ul.mdl-list
+              for client in clients
+                li.mdl-list__item
+                  span.mdl-list__item-primary-content
+                    i.material-icons.mdl-list__item-avatar person
+                    span= client.fullName
+                  span.mdl-list__item-primary-content
+                    span.mdl-list__item-sub-title= client.phone + (client.email ? " " + client.email : "")
+                  span.mdl-list__item-secondary-content
+                    p
+                      ul
+                        for i in chatHistoryExample
+                          li= chatHistoryExample[i]
+            .mdl-card.mdl-cell.mdl-cell--12-col
+              h4 Chat history
+              p bla-bla...
+        else
+          p.text-warning This section is under construction...
       else
-        p.text-warning This section is under construction...
-    else
-      h3 Sorry, access denied.
-      p
-        strong Oops...
-        br
-        span You are not authorized. So, you can't see clientlist.
+        h3 Sorry, access denied.
+        p
+          strong Oops...
+          br
+          span You are not authorized. So, you can't see clientlist.
+
+block js
+  script(src='/js/jquery/jquery-2.1.4.min.js')
   script.
-    //console.log(locals);
-    //console.log(data);
-    //console.log(clients);
-    //console.log(store);
+    $(function(){
+      $('a[href=#scrollTab1], a[href=#scrollTab2]').click(function(e){
+        e.preventDefault();
+        console.log(e.target.attributes.href.value);
+        //console.log(this.target.attributes.href.value);
+        ['#scrollTab1', '#scrollTab2'].map((el, i, a) => { // Sorry, should be refactored =)
+          //if(el!=e){
+            $(el).removeClass('is-active');
+            $('a[href=' + el + ']').removeClass('is-active');
+          //}
+        });
+        $(e.target.attributes.href.value).addClass('is-active');
+        $('a[href=' + e.target.attributes.href.value + ']').addClass('is-active')
+      })
+    });

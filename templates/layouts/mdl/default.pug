@@ -19,34 +19,49 @@ html
         margin-bottom: 40px;
         z-index: 900;
       }
+      .mdl-demo main > .mdl-layout__tab-panel {
+        /**/
+        padding-bottom: 48px;
+      }
 
     block css
 
   body.mdl-demo.mdl-color--grey-100.mdl-color-text--grey-700.mdl-base
-    .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
-      header.mdl-layout__header.mdl-layout__header--scroll.mdl-color--primary
-        .mdl-layout--large-screen-only.mdl-layout__header-row
-        .mdl-layout--large-screen-only.mdl-layout__header-row
-          h3= title= title || 'aflex'
-        .mdl-layout--large-screen-only.mdl-layout__header-row
-        .mdl-layout__tab-bar.mdl-js-ripple-effect.mdl-color--primary-dark
-          each link in navLinks
-            a(class=(section == link.key ? 'is-active' : null) href=link.href).mdl-layout__tab= link.label
-          if user
-            if user.canAccessKeystone
-              a(href='/keystone').mdl-layout__tab Admin UI
-            a(href='/keystone/signout').mdl-layout__tab Sign Out
-          else
-            a(href='/keystone/signin').mdl-layout__tab Sign In
-          //-button.mdl-button.mdl-js-button.mdl-button--fab.mdl-js-ripple-effect.mdl-button--colored.mdl-shadow--4dp.mdl-color--accent#add
-            i(role="presentation").material-icons add
-            span.visuallyhidden Add
-      main.mdl-layout__content
-        .mdl-layout__tab-panel.is-active
-          section.section--center.mdl-grid.mdl-grid--no-spacing.mdl-shadow--4dp
-            .mdl-card.mdl-cell.mdl-cell--12-col
+    .mdl-layout__container.has-scrolling-header
+      .mdl-layout.mdl-js-layout.mdl-layout--fixed-header
+        header.mdl-layout__header.mdl-layout__header--scroll.mdl-color--primary
+          .mdl-layout--large-screen-only.mdl-layout__header-row
+          .mdl-layout--large-screen-only.mdl-layout__header-row
+            h3= title= title || 'aflex'
+          .mdl-layout--large-screen-only.mdl-layout__header-row
+          .mdl-layout__tab-bar.mdl-js-ripple-effect.mdl-color--primary-dark
+            each link in navLinks
+              a(class=(section == link.key ? 'is-active' : null) href=link.href).mdl-layout__tab= link.label
+            if user
+              if user.canAccessKeystone
+                a(href='/keystone').mdl-layout__tab Admin UI
+              a(href='/keystone/signout').mdl-layout__tab Sign Out
+            else
+              a(href='/keystone/signin').mdl-layout__tab Sign In
+            //-button.mdl-button.mdl-js-button.mdl-button--fab.mdl-js-ripple-effect.mdl-button--colored.mdl-shadow--4dp.mdl-color--accent#add
+              i(role="presentation").material-icons add
+              span.visuallyhidden Add
+        main.mdl-layout__content
+          .mdl-layout__tab-panel.is-active
+            section.section--center.mdl-grid.mdl-grid--no-spacing.mdl-shadow--4dp
+              //-.mdl-card.mdl-cell.mdl-cell--12-col
+
               block content
-          section.section--footer.mdl-color--white.mdl-grid
+
+              div(style='border-top: 1px solid rgba(0, 0, 0, 0.12)').mdl-card__actions
+                if user
+                  if user.canAccessKeystone
+                    a(href='/keystone').mdl-button Admin UI
+                  a(href='/keystone/signout').mdl-button Sign Out
+                else
+                  a(href='/keystone/signin').mdl-button Login
+
+          //-section.section--footer.mdl-color--white.mdl-grid
             .section__circle-container.mdl-cell.mdl-cell--2-col.mdl-cell--1-col-phone
               .section__circle-container__circle.mdl-color--accent.section__circle--big
             .section__text.mdl-cell.mdl-cell--4-col-desktop.mdl-cell--6-col-tablet.mdl-cell--3-col-phone
@@ -58,7 +73,7 @@ html
               h5 Lorem ipsum dolor sit amet
               p Qui sint ut et qui nisi cupidatat. Reprehenderit nostrud proident officia exercitation anim et pariatur ex.
 
-        footer.mdl-mega-footer
+        //-footer.mdl-mega-footer
           .mdl-mega-footer--middle-section
             .mdl-mega-footer--drop-down-section
               input(class='mdl-mega-footer--heading-checkbox' type='checkbox' checked)
@@ -70,7 +85,7 @@ html
               h1.mdl-mega-footer--heading
               ul.mdl-mega-footer--link-list
                 li: a(href='#') Something else
-    a(href='https://github.com/pravosleva/cms-for-aflex' target='_blank').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-color--accent.mdl-color-text--accent-contrast#view-source View Source
+    //-a(href='https://github.com/pravosleva/cms-for-aflex' target='_blank').mdl-button.mdl-js-button.mdl-button--raised.mdl-js-ripple-effect.mdl-color--accent.mdl-color-text--accent-contrast#view-source View Source
 
 
 
